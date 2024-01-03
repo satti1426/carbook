@@ -1,0 +1,31 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<table class="table">
+    <thead>
+      <tr>
+          <th scope="col">USER Name</th>
+          <th scope="col">COMPANY</th>
+         
+
+      </tr>
+    </thead>
+    <tbody> 
+           
+        <tr>
+            <th scope="row">{{companys.user}}</th>
+            <th scope="row">{{companys.name}}</th>
+            
+        </tr>
+      
+      </tbody>
+    
+    </table>
+
+{% endblock content %}

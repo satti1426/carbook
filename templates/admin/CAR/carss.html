@@ -1,0 +1,146 @@
+
+
+{% extends 'layouts/base.html' %}
+
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+              <h6 class="h2 text-white d-inline-block mb-0">Default</h6>
+              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                  <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                  <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Default</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-lg-6 col-5 text-right">
+              <a href="#" class="btn btn-sm btn-neutral">New</a>
+              <a  data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-sm btn-neutral">Add Car</a>
+            </div>
+          </div>
+          <!-- Card stats -->
+         
+        </div>
+      </div>
+    </div>
+
+    {% comment %} <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Total Users </h5>
+        <h5 class="card-title">{{car.id|total_carss}}</h5>
+        
+      </div> {% endcomment %}
+   
+    {% for car in cars %}
+
+    <table class="table">
+      <thead>
+       
+        <tr>
+          <th scope="col">user</th>
+          <th scope="col">company</th>
+          
+          
+          <th scope="col">model</th>
+          
+          <th scope="col">car_name</th>
+          <th scope="col">car_type</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <th scope="row">{{car.company.user}}</th>
+          <td>{{car.company.name}}</td>
+          <td>{{car.model}}</td>
+          <td>{{car.car_name}}</td>
+          <td>
+            {% if car.car_type == 1 %}
+            PETROL
+            {% elif car.car_type == 2 %}
+            Deissel
+            {% endif %}
+          </td> 
+        </tr>
+          
+        
+      
+      </tbody>
+    </table> 
+    
+    
+    <a  href="{% url 'users:editcar' car.id %}"type="button" class="btn btn-primary">EDIT</a>
+
+    <a href="{% url 'users:view_car' car.id %}" type="button" class="btn btn-primary">VIEW</a>
+
+    <a href="{% url 'users:delete_car' car.id %}"  class="btn btn-primary">DELETE</a>
+    {% endfor %}
+
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">CAR ADD</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="{% url 'users:carss' %}" method='POST' >
+               {% csrf_token %}
+              <div class="form-group">
+                <label for="exampleInputEmail1">COMPANY NAME</label>
+
+                <select class="form-control" name="company" id="company">
+                  {%  for company in companies %}
+                  <option value="{{company.id}}">{{company.name}}</option>
+                  {% endfor %}
+                </select> 
+
+                <label for="exampleInputEmail1">CAR NAME</label>
+                
+                <input name="carname" type="text" class="form-control" id="carname" aria-describedby="emailHelp" placeholder="Enter CAR NAME">
+                <label for="exampleInputEmail1">MODEL</label>
+                <input name="model" type="text" class="form-control" id="model" aria-describedby="emailHelp" placeholder="Enter MODEL">
+                <label for="exampleInputEmail1">CAR TYPE</label>
+                <select class="form-control" name="car_type" id="car_type">
+                  <option value="1">PETROL</option>
+                  <option value="2">DESIL</option>
+                  <option value="3">CNG</option>
+                </select>
+                {% comment %} <input name="cartype" type="text" class="form-control" id="cartype" aria-describedby="emailHelp" placeholder="Enter CAR TYPE"> {% endcomment %}
+              </div>
+              
+              
+             
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+       
+        </div>
+      </div>
+    </div>
+
+    <!-- Page content -->
+ 
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+
+  <script src="/static/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="/static/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="/static/vendor/chart.js/dist/Chart.extension.js"></script>
+
+{% endblock javascripts %}

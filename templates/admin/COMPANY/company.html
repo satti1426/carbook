@@ -1,0 +1,125 @@
+
+
+{% extends 'layouts/base.html' %}
+
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+              <h6 class="h2 text-white d-inline-block mb-0">Default</h6>
+              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                  <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                  <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Default</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-lg-6 col-5 text-right">
+              <a href="#" class="btn btn-sm btn-neutral">New</a>
+              <a  data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-sm btn-neutral">Add company</a>
+            </div>
+          </div>
+          <!-- Card stats -->
+
+         
+        </div>
+      </div>
+
+      
+    </div>
+
+
+    {% comment %} {% for i,j in lst %}
+    {{i}}
+    <br>
+    {% for data in j %}
+    <b>{{data.car_name}}</b>
+    {% endfor %}
+    <br>
+    {% endfor %} {% endcomment %}
+
+
+
+
+
+
+
+    
+    {% for comp in obj %}
+    <table class="table">
+      <thead>
+        <tr>
+            <th scope="col">user</th>
+            <th scope="col">company</th>
+            <th scope="col">Created On</th>
+        </tr>
+      </thead>
+      <tbody>
+          
+        <tr>
+            <th scope="row">{{comp.user}}</th>
+            <td>{{comp.name}}</td>
+            <td>{{comp.created_ons}}</td>
+         
+        </tr>
+      
+      </tbody>
+    
+    </table>
+    <a href=  "{% url 'users:edit_company' comp.id %}" type="button" class="btn btn-primary">EDIT</a>
+   
+    <a href="{% url 'users:view_company' comp.id %}" type="button" class="btn btn-primary">VIEW</a>
+
+    <a href="{% url 'users:delete_company' comp.id %}"  class="btn btn-primary">DELETE</a>
+    {%endfor%}
+
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="{% url 'users:comapany' %}" method='POST'>
+                {% csrf_token %}
+              
+                <label for="exampleInputEmail1">Company Name</label>
+                <input type="text" class="form-control" id="company_name" name='company_name' aria-describedby="emailHelp" placeholder="Enter company">
+                
+
+              </div>
+              
+             
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+       
+        </div>
+      </div>
+    </div>
+
+    <!-- Page content -->
+ 
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+
+  <script src="/static/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="{/static/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="/static/vendor/chart.js/dist/Chart.extension.js"></script>
+
+{% endblock javascripts %}

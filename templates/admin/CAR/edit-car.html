@@ -1,0 +1,29 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<form action="{% url 'users:editcar' car.id %}" method='POST'>
+    {% csrf_token %}
+COMPANY  :
+<select class="form-control" name="company" id="company">
+    {%  for company in companies %}
+    <option {% if company.id == car.company.id %}selected{% endif %} value="{{company.id}}">{{company.name}}</option>
+    {% endfor %}
+  </select>
+
+MODEL :<input type='text' name="model" value='{{car.model}}'></input>
+CAR_NAME:<input type='text' name="car_name"  value='{{car.car_name}}'></input>
+CAR_TYPE:
+<select class="form-control" name="car_type" id="car_type">
+  <option value="1">PETROL</option>
+  <option value="2">DESIL</option>
+  <option value="3">CNG</option>
+</select>
+
+<button type="submit" class="btn btn-primary">UPDATE</button>
+</form>
+{% endblock content %}

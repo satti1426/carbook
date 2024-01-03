@@ -1,0 +1,18 @@
+
+{% extends 'layouts/base.html' %}
+
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %} 
+
+<form action="{% url 'users:edit_user' user.id %}" method='POST'>
+    {% csrf_token %}
+first name :<input type='text' name='firstname'  value='{{user.first_name}}'></input>
+Email name :<input type='text'  name='email' value='{{user.email}}'></input>
+
+<button type="submit" class="btn btn-primary">UPDATE</button>
+
+{% endblock content %}
